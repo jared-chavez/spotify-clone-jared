@@ -2,10 +2,14 @@ import "./globals.css"
 import { Figtree } from "next/font/google"
 
 import Sidebar from "../components/Sidebar"
+import RegisterServiceWorker from "./components/RegisterServiceWorker"
 import SupabaseProvider from "./providers/SupabaseProvider"
 import UserProvider from "./providers/UserProvider"
 import ModalProvider from "./providers/ModalProvider"
 import ToasterProvider from "./providers/ToastProvider"
+import ServiceWorkerProvider from "./providers/ServiceWorkerProvider"
+import { DataStrategyProvider } from "./providers/DataStrategyProvider"
+import OfflineBanner from "@/components/OfflineBanner"
 import getSongsByUserId from "@/actions/getSongsByUserId"
 import Player from "@/components/Player"
 import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices"
@@ -26,12 +30,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className={figtree.className}>
+        <RegisterServiceWorker />
         <ToasterProvider />
+        <ServiceWorkerProvider />
         <SupabaseProvider>
           <UserProvider>
-            <ModalProvider products={products} />
-            <Sidebar songs={userSongs}>{children}</Sidebar>
-            <Player />
+            <DataStrategyProvider initialUserSongs={userSongs}>
+              <OfflineBanner />
+              <ModalProvider products={products} />
+              <Sidebar>{children}</Sidebar>
+              <Player />
+            </DataStrategyProvider>
           </UserProvider>
         </SupabaseProvider>
       </body>

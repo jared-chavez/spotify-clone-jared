@@ -1,3 +1,12 @@
 {
-  "/(site)/page": "app/(site)/page.js"
+  "/_not-found": "app/_not-found.js",
+  "/account/page": "app/account/page.js",
+  "/api/create-checkout-session/route": "app/api/create-checkout-session/route.js",
+  "/api/create-portal-link/route": "app/api/create-portal-link/route.js",
+  "/api/webhooks/route": "app/api/webhooks/route.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/search/page": "app/search/page.js",
+  "/icon.ico/route": "app/icon.ico/route.js",
+  "/(site)/page": "app/(site)/page.js",
+  "/liked/page": "app/liked/page.js"
 }

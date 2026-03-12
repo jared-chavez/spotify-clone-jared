@@ -8,6 +8,7 @@ import { useUser } from "@/hooks/useUser"
 import MediaItem from "@/components/MediaItem"
 import LikeButton from "@/components/LikeButton"
 import useOnPlay from "@/hooks/useOnPlay"
+import { useDataStrategy } from "@/app/providers/DataStrategyProvider"
 
 interface LikedContentProps {
   songs: Song[]
@@ -16,6 +17,7 @@ interface LikedContentProps {
 const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
   const router = useRouter()
   const { isLoading, user } = useUser()
+  const { setLikedSongsCache } = useDataStrategy()
 
   const onPlay = useOnPlay(songs)
 
@@ -24,6 +26,10 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
       router.replace("/")
     }
   }, [isLoading, user, router])
+
+  useEffect(() => {
+    if (songs.length > 0) setLikedSongsCache(songs)
+  }, [songs, setLikedSongsCache])
 
   if (songs.length === 0) {
     return (

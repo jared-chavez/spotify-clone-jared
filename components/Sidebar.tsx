@@ -9,17 +9,17 @@ import { twMerge } from "tailwind-merge"
 import Box from "./Box"
 import SidebarItem from "./SidebarItem"
 import Library from "./Library"
-import { Song } from "@/types"
 import usePlayer from "@/hooks/usePlayer"
+import { useDataStrategy } from "@/app/providers/DataStrategyProvider"
 
 interface SidebarProps {
   children: React.ReactNode
-  songs: Song[]
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
+const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const pathname = usePathname()
   const player = usePlayer()
+  const { userSongs: songs } = useDataStrategy()
 
   const routes = useMemo(
     () => [
@@ -35,9 +35,8 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         active: pathname === "/search",
         href: "/search",
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     ],
-    [],
+    [pathname],
   )
 
   return (

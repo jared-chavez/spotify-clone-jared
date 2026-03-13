@@ -1,11 +1,11 @@
 "use client"
 
+import type { SupabaseClient } from "@supabase/supabase-js"
 import React, { useEffect } from "react"
 import { Auth } from "@supabase/auth-ui-react"
 import { ThemeSupa } from "@supabase/auth-ui-shared"
 import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/navigation"
-import type { SupabaseClient } from "@supabase/supabase-js"
 
 import useAuthModal from "@/hooks/useAuthModal"
 
